@@ -31,5 +31,12 @@ namespace BankAssignment.Controller
         {
             return currencies.First(c => c.Code == code).Rate;
         }
+
+        public Double ExchangeToCAD(double amount, string code)
+        {
+            double rate = GetRate(code);
+            if (rate == 1) return amount;
+            return amount / rate;
+        }
     }
 }
