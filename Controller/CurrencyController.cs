@@ -9,27 +9,27 @@ namespace BankAssignment.Controller
 {
     public class CurrencyController
     {
-        public List<Currency> currencies;
+        public List<Currency> Currencies { get; private set; }
 
         public CurrencyController()
         {
-            currencies = new List<Currency>()
+            Currencies = new List<Currency>()
             {
-                new Currency { Code = "CAD", Rate = 1},
-                new Currency { Code = "USD", Rate = 0.5},
-                new Currency { Code = "MXN", Rate = 10},
-                new Currency { Code = "EURO", Rate = 0.25},
+                new Currency ("CAD", 1),
+                new Currency ("USD", 0.5),
+                new Currency ("MXN", 10),
+                new Currency ("EURO", 0.25),
             };
         }
 
         public IEnumerable<string> GetCodes()
         {
-            return currencies.Select(c => c.Code);
+            return Currencies.Select(c => c.Code);
         }
 
         public Double GetRate(string code)
         {
-            return currencies.First(c => c.Code == code).Rate;
+            return Currencies.First(c => c.Code == code).Rate;
         }
 
         public Double ExchangeToCAD(double amount, string code)

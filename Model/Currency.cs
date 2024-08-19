@@ -9,6 +9,12 @@ namespace BankAssignment.Model
     public class Currency
     {
         public string Code { get; set; }
-        public double Rate { get; set; }
+        public double Rate { get; private set; }
+
+        public Currency(string code, double rate) 
+        { 
+            Code = code;
+            Rate = rate;
+        }
     }
 }

@@ -1,0 +1,63 @@
+﻿<Window
+    x:Class="BankAssignment.TransactionPopup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BankAssignment"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="AlertPopup"
+    Width="400"
+    Height="250"
+    AllowsTransparency="True"
+    Background="Transparent"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Border Background="White" CornerRadius="10">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="15"
+                ShadowDepth="5"
+                Color="LightGray" />
+        </Border.Effect>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                x:Name="txtTransaction"
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="TextBlock"
+                TextWrapping="Wrap" />
+            <Button
+                x:Name="btnOk"
+                Grid.Row="3"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Click="btnOk_Click"
+                Content="Button" />
+            <Button
+                x:Name="btnCancel"
+                Grid.Row="3"
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Click="btnCancel_Click"
+                Content="Cancel" />
+        </Grid>
+    </Border>
+</Window>

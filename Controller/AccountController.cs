@@ -9,37 +9,50 @@ namespace BankAssignment.Controller
 {
     public class AccountController
     {
-
-        public List<Account> account;
+        public List<Account> Accounts { get; private set; }
 
         public AccountController()
         {
-            account = new List<Account>() 
+            Accounts = new List<Account>() 
             { 
-                new Account() { accountID = 1001, clientName = "John Doe", balance = 1000 },
-                new Account() { accountID = 1002, clientName = "John Doe", balance = 1000 }
+                new Account(1001, "John Smith", 1000),
+                new Account(1002, "John Smith", 1500)
             };
         }
 
-        public double GetBalance()
+        public IEnumerable<int> GetAccountsID()
         {
-            return account[0].balance; 
+            return Accounts.Select(a => a.AccountID);
         }
 
-        public void Deposit(double amount)
+        public double GetBalance(int id)
         {
-            account[0].balance += amount;
+            return Accounts.First(a => a.AccountID == id).Balance; 
         }
 
-        public bool CanWithdraw(double amount)
+        //public string GetAccountHolderName(int id)
+        //{
+        //    return Accounts.First(a => a.AccountID == id).AccountHolder;
+        //}
+
+        public void Deposit(int id, double amount)
         {
-            double balance = account[0].balance;
-            return balance - amount >= 0;
+            Account account = Accounts.First(a => a.AccountID == id);
+            double newBalance = account.Balance + amount;
+            account.ChangeBalance(newBalance);
         }
 
-        public void Withdraw(double amount)
+        public bool CanWithdraw(int id, double amount)
         {
-            account[0].balance -= amount;
+            Account account = Accounts.First(a => a.AccountID == id);
+            return amount <= account.Balance;
+        }
+
+        public void Withdraw(int id, double amount)
+        {
+            Account account = Accounts.First(a => a.AccountID == id);
+            double newBalance = account.Balance - amount;
+            account.ChangeBalance(newBalance);
         }
     }
 }
