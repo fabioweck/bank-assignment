@@ -23,6 +23,7 @@ namespace BankAssignment
         //To try other clients, use '234' or '345'
         public int clientID = 123;
 
+        public string originalAmount = String.Empty;
         public string rateText = String.Empty;
         public string transactionDetailsText = String.Empty;
 
@@ -66,7 +67,7 @@ namespace BankAssignment
         private void DisplayAccountDetails()
         {
             int id = (int)cmbAccount.SelectedItem;
-            lblBalance.Content = $"${accountController.GetBalance(id)}";
+            lblBalance.Content = $"${accountController.GetBalance(id)} CAD";
             cmbCurrency.SelectedIndex = 0;
         }
 
@@ -82,12 +83,12 @@ namespace BankAssignment
         {
             string code = cmbCurrency.SelectedItem.ToString();
             double rate = currencyController.GetRate(code);
-            rateText = $"$1 {code} = ${1/rate} CAD";
+            if(code != "CAD") rateText = $"($1 {code} = ${1/rate} CAD)";
         }
 
-        private string ConfirmTransaction(string operation)
+        private string ConfirmTransaction(string operation, string convertedAmount)
         { 
-            TransactionPopup transactionScreen = new TransactionPopup(operation, rateText);
+            TransactionPopup transactionScreen = new TransactionPopup(operation, originalAmount, convertedAmount, rateText);
             string optionSelected = String.Empty;
             transactionScreen.Option += (o) => { optionSelected = o; };
             transactionScreen.ShowDialog();
@@ -96,30 +97,36 @@ namespace BankAssignment
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidateInput()) return;
+
             var transaction = TransactionDetails();
             string operation = btnDeposit.Content.ToString();
 
-            string confirmTransaction = ConfirmTransaction(operation);
+            string confirmTransaction = ConfirmTransaction(operation, transaction.amount.ToString());
 
             if (confirmTransaction == "Ok") 
             {
                 accountController.Deposit(transaction.id, transaction.amount);
+                rateText = String.Empty;
                 DisplayAccountDetails();
             }
         } 
 
         private void btnWithdraw_Click(object sender, RoutedEventArgs e)
-        { 
+        {
+            if(!ValidateInput()) return;
+
             var transaction = TransactionDetails();
             string operation = btnWithdraw.Content.ToString();
 
-            string confirmTransaction = ConfirmTransaction(operation);
+            string confirmTransaction = ConfirmTransaction(operation, transaction.amount.ToString());
 
             if (confirmTransaction == "Ok")
             {
                 if (accountController.CanWithdraw(transaction.id, transaction.amount))
                 {
                     accountController.Withdraw(transaction.id, transaction.amount);
+                    rateText = String.Empty;
                     DisplayAccountDetails();
                 }
             }  
@@ -137,6 +144,14 @@ namespace BankAssignment
             return System.Text.RegularExpressions.Regex.IsMatch(text, "^[0-9]*(\\.[0-9]*)?$");
         }
 
+        private bool ValidateInput()
+        {
+            if (amountInput.Text == null ||
+                amountInput.Text == String.Empty ||
+                Convert.ToDouble(amountInput.Text) == 0) return false;
+            return true;
+        }
+
         private Double ConvertInput()
         {
 
@@ -152,6 +167,7 @@ namespace BankAssignment
             }
 
             string code = cmbCurrency.SelectedItem.ToString();
+            originalAmount = $"${amountInput.Text} {code}";
 
             return currencyController.ExchangeToCAD(amount, code);
 

@@ -22,13 +22,16 @@ namespace BankAssignment
 
         public event Action<string> Option;
 
-        public TransactionPopup(string operation, string rate)
+        public TransactionPopup(string operation, string originalAmount, string convertedAmount, string rate)
         {
             InitializeComponent();
 
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;   
             
             SetIcon(operation);
+
+            lblOriginalAmount.Content = originalAmount;
+            lblConvertedAmount.Content = convertedAmount;
             lblOperation.Content = operation;
             lblTransaction.Content = rate;
         }

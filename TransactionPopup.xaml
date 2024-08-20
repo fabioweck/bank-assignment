@@ -36,18 +36,16 @@
             </Grid.RowDefinitions>
             <Label
                 x:Name="lblTransaction"
-                Grid.Row="1"
-                Grid.RowSpan="4"
+                Grid.Row="3"
                 Grid.Column="2"
                 Width="182"
-                Height="145"
-                Margin="0,33,0,0"
+                Height="35"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Content="This is a test"
-                FontSize="16"
+                FontSize="12"
                 FontWeight="SemiBold"
                 Foreground="#FF393053" />
             <Button
@@ -116,6 +114,37 @@
                 Content="This is a test"
                 FontFamily="Arial Rounded MT Bold"
                 FontSize="24"
+                FontWeight="SemiBold"
+                Foreground="#FF393053" />
+            <Label
+                x:Name="lblConvertedAmount"
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="182"
+                Height="35"
+                Margin="0,21,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="This is a test"
+                FontSize="16"
+                FontWeight="SemiBold"
+                Foreground="#FF393053" />
+            <Label
+                x:Name="lblOriginalAmount"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Width="182"
+                Height="35"
+                Margin="0,59,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="This is a test"
+                FontSize="16"
                 FontWeight="SemiBold"
                 Foreground="#FF393053" />
         </Grid>

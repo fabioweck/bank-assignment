@@ -49,23 +49,16 @@
             Content="Welcome John Smith!"
             Foreground="#FF18122B" />
         <Label
-            Grid.Row="1"
-            Grid.Column="5"
-            Grid.ColumnSpan="2"
-            Width="62"
-            Height="26"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Content="Account:"
-            Foreground="#FF18122B" />
-        <Label
             x:Name="lblBalance"
             Grid.Row="2"
-            Grid.Column="5"
-            Width="38"
+            Grid.Column="6"
+            Grid.ColumnSpan="2"
+            Width="83"
             Height="26"
-            HorizontalAlignment="Center"
+            Margin="10,0,0,0"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center"
+            HorizontalContentAlignment="Right"
             Content="Label"
             Foreground="#FF18122B" />
         <Border
@@ -92,16 +85,18 @@
             Width="90"
             Height="29"
             Margin="0,22,0,0"
+            Padding="0,0,2,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
+            HorizontalContentAlignment="Right"
             VerticalContentAlignment="Center"
             FontFamily="Arial Rounded MT Bold"
             FontSize="16"
             Foreground="#FF443C68"
             PreviewTextInput="NumericTextBox_PreviewTextInput"
             Text="0"
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap"
+            ToolTip="Test" />
         <ComboBox
             x:Name="cmbCurrency"
             Grid.Row="6"
@@ -123,13 +118,13 @@
         <TextBlock
             x:Name="txtRate"
             Grid.Row="2"
-            Grid.Column="3"
-            Width="56"
+            Grid.Column="5"
+            Width="52"
             Height="16"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Foreground="#FF18122B"
-            Text="Balance"
+            Text="Balance:"
             TextWrapping="Wrap" />
         <Button
             x:Name="btnWithdraw"
@@ -217,5 +212,16 @@
             FontFamily="Arial Rounded MT Bold"
             FontSize="16"
             Foreground="#F9F3F3F3" />
+        <TextBlock
+            x:Name="txtRate_Copy"
+            Grid.Row="1"
+            Grid.Column="5"
+            Width="52"
+            Height="16"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+            Foreground="#FF18122B"
+            Text="Account:"
+            TextWrapping="Wrap" />
     </Grid>
 </Window>
