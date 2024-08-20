@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Data.Common;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using BankAssignment.Controller;
@@ -61,7 +63,7 @@ namespace BankAssignment
         //Get all codes to be displayed in the account combo box
         private void PopulateCmbAccount(int clientID)
         {
-            cmbAccount.ItemsSource = accountController.GetAccountsID(clientID);
+            cmbAccount.ItemsSource = accountController.GetCheckingAccountIDs(clientID);
         }
 
         //Get balance to display on the screen
@@ -96,20 +98,26 @@ namespace BankAssignment
             return optionSelected;
         }
 
+        private void ClearTexts()
+        {
+            originalAmountText = String.Empty;
+            rateText = String.Empty;
+            amountConvertedText = String.Empty;
+        }
+
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateInput()) return;
 
             var transaction = TransactionDetails();
             string operation = btnDeposit.Content.ToString();
-            amountConvertedText = $"Equals ${transaction.amount.ToString()} CAD";
 
             string confirmTransaction = ConfirmTransaction(operation, amountConvertedText);
 
-            if (confirmTransaction == "Ok") 
+            if (confirmTransaction == "Confirm") 
             {
                 accountController.Deposit(transaction.id, transaction.amount);
-                rateText = String.Empty;
+                ClearTexts();
                 DisplayAccountDetails();
             }
         } 
@@ -120,20 +128,24 @@ namespace BankAssignment
 
             var transaction = TransactionDetails();
             string operation = btnWithdraw.Content.ToString();
-            amountConvertedText = $"Equals ${transaction.amount.ToString()} CAD";
 
-            string confirmTransaction = ConfirmTransaction(operation, amountConvertedText);
-
-            if (confirmTransaction == "Ok")
+            if (accountController.CanWithdraw(transaction.id, transaction.amount))
             {
-                if (accountController.CanWithdraw(transaction.id, transaction.amount))
+                string confirmTransaction = ConfirmTransaction(operation, amountConvertedText);
+
+                if (confirmTransaction == "Confirm")
                 {
                     accountController.Withdraw(transaction.id, transaction.amount);
-                    rateText = String.Empty;
+                    ClearTexts();
                     DisplayAccountDetails();
                 }
-            }  
-        }
+            }
+            else
+            {
+                AlertPopup popup = new AlertPopup(amountConvertedText);
+                popup.ShowDialog();
+            }
+        }          
 
         private void NumericTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
@@ -171,8 +183,10 @@ namespace BankAssignment
 
             string code = cmbCurrency.SelectedItem.ToString();
             originalAmountText = $"${amountInput.Text} {code}";
+            double amountConverted = currencyController.ExchangeToCAD(amount, code);
+            if (code != "CAD") amountConvertedText = $"Equals ${amountConverted} CAD";
 
-            return currencyController.ExchangeToCAD(amount, code);
+            return amountConverted;
 
         }
 

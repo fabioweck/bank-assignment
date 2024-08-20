@@ -6,10 +6,24 @@ using System.Threading.Tasks;
 
 namespace BankAssignment.Model
 {
-    public class Account
+    //Interface to define common properties and methods
+    //an account must have
+    //(checking, savings, joint, and international accounts)
+
+    public interface IAccount
+    {
+        public int AccountID { get; }
+        public string AccountType { get; }
+        public double Balance { get; }
+        public void ChangeBalance(double balance);
+    }
+
+    //Checking account class
+    public class Account: IAccount
     {
         public int AccountID { get; private set; }
         public int ClientID { get; private set; }
+        public string AccountType { get; private set; } = "Checking";
         public double Balance { get; private set; }
 
         public Account(int accountID, int clientID, double initialBalance) 
@@ -20,7 +34,7 @@ namespace BankAssignment.Model
         }
 
         public void ChangeBalance(double balance)
-        { 
+        {
             Balance = balance;
         }
     }

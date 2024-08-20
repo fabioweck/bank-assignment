@@ -43,7 +43,7 @@ namespace BankAssignment
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            Option?.Invoke("Ok");
+            Option?.Invoke("Confirm");
             this.Close();
         }
 

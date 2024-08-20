@@ -9,11 +9,11 @@ namespace BankAssignment.Controller
 {
     public class AccountController
     {
-        public List<Account> Accounts { get; private set; }
+        public List<IAccount> Accounts { get; private set; }
 
         public AccountController()
         {
-            Accounts = new List<Account>() 
+            Accounts = new List<IAccount>() 
             { 
                 new Account(1001, 123, 1000),
                 new Account(1002, 123, 1500),
@@ -23,10 +23,11 @@ namespace BankAssignment.Controller
             };
         }
 
-        public IEnumerable<int> GetAccountsID(int client)
+        public IEnumerable<int> GetCheckingAccountIDs(int clientID)
         {
-            return Accounts.Where(a => a.ClientID == client)
-                            .Select(a => a.AccountID);
+            return Accounts.OfType<Account>()
+                           .Where(a => a.ClientID == clientID)
+                           .Select(a => a.AccountID);
         }
 
         public double GetBalance(int id)
@@ -36,20 +37,20 @@ namespace BankAssignment.Controller
 
         public void Deposit(int id, double amount)
         {
-            Account account = Accounts.First(a => a.AccountID == id);
+            IAccount account = Accounts.First(a => a.AccountID == id);
             double newBalance = account.Balance + amount;
             account.ChangeBalance(newBalance);
         }
 
         public bool CanWithdraw(int id, double amount)
         {
-            Account account = Accounts.First(a => a.AccountID == id);
+            IAccount account = Accounts.First(a => a.AccountID == id);
             return amount <= account.Balance;
         }
 
         public void Withdraw(int id, double amount)
         {
-            Account account = Accounts.First(a => a.AccountID == id);
+            IAccount account = Accounts.First(a => a.AccountID == id);
             double newBalance = account.Balance - amount;
             account.ChangeBalance(newBalance);
         }
