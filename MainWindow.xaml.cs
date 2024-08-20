@@ -23,7 +23,8 @@ namespace BankAssignment
         //To try other clients, use '234' or '345'
         public int clientID = 123;
 
-        public string originalAmount = String.Empty;
+        public string originalAmountText = String.Empty;
+        public string amountConvertedText = String.Empty;
         public string rateText = String.Empty;
         public string transactionDetailsText = String.Empty;
 
@@ -88,7 +89,7 @@ namespace BankAssignment
 
         private string ConfirmTransaction(string operation, string convertedAmount)
         { 
-            TransactionPopup transactionScreen = new TransactionPopup(operation, originalAmount, convertedAmount, rateText);
+            TransactionPopup transactionScreen = new TransactionPopup(operation, originalAmountText, convertedAmount, rateText);
             string optionSelected = String.Empty;
             transactionScreen.Option += (o) => { optionSelected = o; };
             transactionScreen.ShowDialog();
@@ -101,8 +102,9 @@ namespace BankAssignment
 
             var transaction = TransactionDetails();
             string operation = btnDeposit.Content.ToString();
+            amountConvertedText = $"Equals ${transaction.amount.ToString()} CAD";
 
-            string confirmTransaction = ConfirmTransaction(operation, transaction.amount.ToString());
+            string confirmTransaction = ConfirmTransaction(operation, amountConvertedText);
 
             if (confirmTransaction == "Ok") 
             {
@@ -118,8 +120,9 @@ namespace BankAssignment
 
             var transaction = TransactionDetails();
             string operation = btnWithdraw.Content.ToString();
+            amountConvertedText = $"Equals ${transaction.amount.ToString()} CAD";
 
-            string confirmTransaction = ConfirmTransaction(operation, transaction.amount.ToString());
+            string confirmTransaction = ConfirmTransaction(operation, amountConvertedText);
 
             if (confirmTransaction == "Ok")
             {
@@ -167,7 +170,7 @@ namespace BankAssignment
             }
 
             string code = cmbCurrency.SelectedItem.ToString();
-            originalAmount = $"${amountInput.Text} {code}";
+            originalAmountText = $"${amountInput.Text} {code}";
 
             return currencyController.ExchangeToCAD(amount, code);
 
