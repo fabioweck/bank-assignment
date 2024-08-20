@@ -11,19 +11,12 @@ namespace BankAssignment.Model
         public int Id { get; private set; }
         public string Name { get; private set; }
         public string Address { get; private set; }
-        public List<Account> Accounts { get; private set; }
 
-        public Client(int id, string name, string address, List<Account> accounts) 
+        public Client(int id, string name, string address) 
         { 
             Id = id;
             Name = name;
             Address = address;
-            Accounts = accounts;
-        }
-
-        public void UpdateAccounts(List<Account> accounts)
-        {
-            Accounts = accounts;
         }
     }
 }

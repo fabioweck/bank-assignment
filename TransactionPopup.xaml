@@ -7,17 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="AlertPopup"
     Width="400"
-    Height="250"
+    Height="311"
     AllowsTransparency="True"
     Background="Transparent"
     WindowStyle="None"
     mc:Ignorable="d">
-    <Border Background="White" CornerRadius="10">
+    <Border Background="#FFD2D2D2" CornerRadius="10">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="15"
                 ShadowDepth="5"
-                Color="LightGray" />
+                Color="Gray" />
         </Border.Effect>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -27,37 +27,97 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="4*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="28*" />
+                <RowDefinition Height="66*" />
+                <RowDefinition Height="45*" />
+                <RowDefinition Height="28*" />
+                <RowDefinition Height="56*" />
+                <RowDefinition Height="28*" />
             </Grid.RowDefinitions>
-            <TextBlock
-                x:Name="txtTransaction"
+            <Label
+                x:Name="lblTransaction"
                 Grid.Row="1"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
+                Grid.RowSpan="4"
+                Grid.Column="2"
+                Width="182"
+                Height="145"
+                Margin="0,33,0,0"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Text="TextBlock"
-                TextWrapping="Wrap" />
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="This is a test"
+                FontSize="16"
+                FontWeight="SemiBold"
+                Foreground="#FF393053" />
             <Button
                 x:Name="btnOk"
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="1"
+                Width="75"
+                Height="36"
+                Margin="0,33,0,0"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="#FF635985"
+                BorderBrush="{x:Null}"
                 Click="btnOk_Click"
-                Content="Button" />
+                Content="Confirm"
+                FontWeight="Bold"
+                Foreground="#F9F3F3F3">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF393053" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Button
                 x:Name="btnCancel"
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="2"
+                Width="75"
+                Height="36"
+                Margin="0,33,0,0"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="#FF635985"
+                BorderBrush="{x:Null}"
                 Click="btnCancel_Click"
-                Content="Cancel" />
+                Content="Cancel"
+                FontWeight="Bold"
+                Foreground="#F9F3F3F3" />
+            <Image
+                x:Name="imgIcon"
+                Grid.Row="1"
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                Width="100"
+                Height="101"
+                Margin="0,55,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Source="/Resources/Icons/deposit.png" />
+            <Label
+                x:Name="lblOperation"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Width="182"
+                Height="48"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="This is a test"
+                FontFamily="Arial Rounded MT Bold"
+                FontSize="24"
+                FontWeight="SemiBold"
+                Foreground="#FF393053" />
         </Grid>
     </Border>
 </Window>

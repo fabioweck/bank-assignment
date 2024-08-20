@@ -15,25 +15,24 @@ namespace BankAssignment.Controller
         {
             Accounts = new List<Account>() 
             { 
-                new Account(1001, "John Smith", 1000),
-                new Account(1002, "John Smith", 1500)
+                new Account(1001, 123, 1000),
+                new Account(1002, 123, 1500),
+                new Account(2001, 234, 900),
+                new Account(2002, 234, 1600),
+                new Account(3001, 345, 2000),
             };
         }
 
-        public IEnumerable<int> GetAccountsID()
+        public IEnumerable<int> GetAccountsID(int client)
         {
-            return Accounts.Select(a => a.AccountID);
+            return Accounts.Where(a => a.ClientID == client)
+                            .Select(a => a.AccountID);
         }
 
         public double GetBalance(int id)
         {
             return Accounts.First(a => a.AccountID == id).Balance; 
         }
-
-        //public string GetAccountHolderName(int id)
-        //{
-        //    return Accounts.First(a => a.AccountID == id).AccountHolder;
-        //}
 
         public void Deposit(int id, double amount)
         {

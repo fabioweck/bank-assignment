@@ -25,9 +25,12 @@ namespace BankAssignment
         public TransactionPopup(string operation, string rate)
         {
             InitializeComponent();
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;     
-            btnOk.Content = operation;
-            txtTransaction.Text = rate;
+
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;   
+            
+            SetIcon(operation);
+            lblOperation.Content = operation;
+            lblTransaction.Content = rate;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -39,6 +42,13 @@ namespace BankAssignment
         {
             Option?.Invoke("Ok");
             this.Close();
+        }
+
+        private void SetIcon(string operation) 
+        {
+            Uri uri = new Uri($"pack://application:,,,/Resources/Icons/{operation}.png", UriKind.RelativeOrAbsolute);
+            BitmapImage bitmap = new BitmapImage(uri);
+            imgIcon.Source = bitmap;
         }
     }
 }

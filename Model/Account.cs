@@ -9,13 +9,13 @@ namespace BankAssignment.Model
     public class Account
     {
         public int AccountID { get; private set; }
-        public string AccountHolder { get; private set; }
+        public int ClientID { get; private set; }
         public double Balance { get; private set; }
 
-        public Account(int id, string accountHolder, double initialBalance) 
+        public Account(int accountID, int clientID, double initialBalance) 
         { 
-            AccountID = id;
-            AccountHolder = accountHolder;
+            AccountID = accountID;
+            ClientID = clientID;
             Balance = initialBalance;
         }
 

@@ -11,27 +11,43 @@ namespace BankAssignment
     public partial class MainWindow : Window
     {
 
-        //Controllers for currency and account model
-        public CurrencyController currencyController;
+        /* Since the program has only one display, MainWindow is used as "View" class
+           to collect user side inputs and request logic to all controllers,
+           following MVC pattern */
+
+        //Controllers for clients, account, and currency models
+        public ClientController clientController;
         public AccountController accountController;
+        public CurrencyController currencyController;
+
+        //To try other clients, use '234' or '345'
+        public int clientID = 123;
 
         public string rateText = String.Empty;
-        public string transactionDetails = String.Empty;
+        public string transactionDetailsText = String.Empty;
 
         public MainWindow()
         {
-            //Instantiate both currency and account controllers
-            currencyController = new CurrencyController();
+            //Instantiate client, account, and currency controllers
+            clientController = new ClientController();
             accountController = new AccountController();
+            currencyController = new CurrencyController();
 
             InitializeComponent();
 
             //Center main window on the screen when initialized
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            //Populate both combo boxes
+            DisplayClientName(clientID);
             PopulateCmbCurrency();
-            PopulateCmbAccount();
+            PopulateCmbAccount(clientID);
+        }
+
+        //Method created to simulate the steps before reaching account page
+        //assuming that a client was previously selected by ID
+        private void DisplayClientName(int clientID)
+        {
+            lblClient.Content = $"Hello {clientController.GetClientName(clientID)}!";
         }
 
         //Get all codes to be displayed in the currency combo box
@@ -41,9 +57,9 @@ namespace BankAssignment
         }
 
         //Get all codes to be displayed in the account combo box
-        private void PopulateCmbAccount()
+        private void PopulateCmbAccount(int clientID)
         {
-            cmbAccount.ItemsSource = accountController.GetAccountsID();
+            cmbAccount.ItemsSource = accountController.GetAccountsID(clientID);
         }
 
         //Get balance to display on the screen
@@ -51,6 +67,7 @@ namespace BankAssignment
         {
             int id = (int)cmbAccount.SelectedItem;
             lblBalance.Content = $"${accountController.GetBalance(id)}";
+            cmbCurrency.SelectedIndex = 0;
         }
 
         //Get the amount converted and account id to pass to transaction
@@ -64,8 +81,8 @@ namespace BankAssignment
         private void cmbCurrency_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string code = cmbCurrency.SelectedItem.ToString();
-            string rate = currencyController.GetRate(code).ToString();
-            rateText = $"Exchange rate: 1 CAD to ${rate} {code}";
+            double rate = currencyController.GetRate(code);
+            rateText = $"$1 {code} = ${1/rate} CAD";
         }
 
         private string ConfirmTransaction(string operation)
@@ -106,6 +123,18 @@ namespace BankAssignment
                     DisplayAccountDetails();
                 }
             }  
+        }
+
+        private void NumericTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            // Use a regular expression to check if the input is numeric
+            e.Handled = !IsTextNumeric(e.Text);
+        }
+
+        private static bool IsTextNumeric(string text)
+        {
+            // Regex to allow numeric values with optional decimal point
+            return System.Text.RegularExpressions.Regex.IsMatch(text, "^[0-9]*(\\.[0-9]*)?$");
         }
 
         private Double ConvertInput()
