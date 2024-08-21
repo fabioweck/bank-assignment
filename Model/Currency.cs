@@ -17,7 +17,7 @@ namespace BankAssignment.Model
             Rate = rate;
         }
 
-        //Method to update rate
+        //Method to update rate (not required)
         public void UpdateRate(double rate)
         {
             Rate = rate;

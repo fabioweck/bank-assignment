@@ -23,11 +23,14 @@ namespace BankAssignment
         {
             InitializeComponent();
 
+            //Centers the popup on the screen
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
+            //Set the message on the popup
             lblAmount.Content = message;
         }
 
+        //Method to handle button "Close"
         private void BtnClose(object sender, RoutedEventArgs e)
         {
             this.Close();

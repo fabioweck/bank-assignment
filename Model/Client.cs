@@ -40,6 +40,7 @@ namespace BankAssignment.Model
             Phone = phone;
         }
 
+        //Method to update client's info (not required)
         public void UpdateInfo(
             int id,
             string name,
