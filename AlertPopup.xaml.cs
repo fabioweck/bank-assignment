@@ -28,7 +28,7 @@ namespace BankAssignment
             lblAmount.Content = message;
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnClose(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

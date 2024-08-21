@@ -16,5 +16,11 @@ namespace BankAssignment.Model
             Code = code;
             Rate = rate;
         }
+
+        //Method to update rate
+        public void UpdateRate(double rate)
+        {
+            Rate = rate;
+        }
     }
 }

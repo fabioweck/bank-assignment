@@ -33,6 +33,7 @@ namespace BankAssignment.Model
             Balance = initialBalance;
         }
 
+        //Method to update/change account balance
         public void ChangeBalance(double balance)
         {
             Balance = balance;

@@ -43,7 +43,7 @@
                    Foreground="#FF393053"
                    Margin="0,40,0,0"
                    Grid.RowSpan="2" />
-            <Button x:Name="btnOk"
+            <Button x:Name="btnConfirm"
                     Grid.Row="4"
                     Grid.Column="1"
                     Width="75"
@@ -53,7 +53,7 @@
                     VerticalAlignment="Top"
                     Background="#FF635985"
                     BorderBrush="{x:Null}"
-                    Click="btnOk_Click"
+                    Click="BtnConfirm"
                     Content="Confirm"
                     FontWeight="Bold"
                     Foreground="#F9F3F3F3">
@@ -79,7 +79,7 @@
                     VerticalAlignment="Top"
                     Background="#FF635985"
                     BorderBrush="{x:Null}"
-                    Click="btnCancel_Click"
+                    Click="BtnCancel"
                     Content="Cancel"
                     FontWeight="Bold"
                     Foreground="#F9F3F3F3" />
