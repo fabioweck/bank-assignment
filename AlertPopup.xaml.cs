@@ -19,13 +19,13 @@ namespace BankAssignment
     /// </summary>
     public partial class AlertPopup : Window
     {
-        public AlertPopup(string amountConverted)
+        public AlertPopup(string message)
         {
             InitializeComponent();
 
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            lblAmount.Content = amountConverted;
+            lblAmount.Content = message;
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

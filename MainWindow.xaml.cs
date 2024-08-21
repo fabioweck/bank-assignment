@@ -51,7 +51,7 @@ namespace BankAssignment
         //assuming that a client was previously selected by ID
         private void DisplayClientName(int clientID)
         {
-            lblClient.Content = $"Hello {clientController.GetClientName(clientID)}!";
+            lblClient.Content = $"Welcome {clientController.GetClientName(clientID)}!";
         }
 
         //Get all codes to be displayed in the currency combo box
@@ -70,16 +70,16 @@ namespace BankAssignment
         private void DisplayAccountDetails()
         {
             int id = (int)cmbAccount.SelectedItem;
-            lblBalance.Content = $"${accountController.GetBalance(id)} CAD";
+            lblBalance.Content = $"${accountController.GetBalance(id):F2} (CAD)";
             cmbCurrency.SelectedIndex = 0;
         }
 
         //Get the amount converted and account id to pass to transaction
-        private (int id, double amount) TransactionDetails()
+        private (int code, double amount) TransactionDetails()
         {
             double amountConverted = ConvertInput();
-            int id = (int)cmbAccount.SelectedItem;
-            return (id, amountConverted);
+            int code = (int)cmbAccount.SelectedItem;
+            return (code, amountConverted);
         }
 
         private void cmbCurrency_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -116,7 +116,7 @@ namespace BankAssignment
 
             if (confirmTransaction == "Confirm") 
             {
-                accountController.Deposit(transaction.id, transaction.amount);
+                accountController.Deposit(transaction.code, transaction.amount);
                 ClearTexts();
                 DisplayAccountDetails();
             }
@@ -129,21 +129,27 @@ namespace BankAssignment
             var transaction = TransactionDetails();
             string operation = btnWithdraw.Content.ToString();
 
-            if (accountController.CanWithdraw(transaction.id, transaction.amount))
+            if (accountController.CanWithdraw(transaction.code, transaction.amount))
             {
                 string confirmTransaction = ConfirmTransaction(operation, amountConvertedText);
 
                 if (confirmTransaction == "Confirm")
                 {
-                    accountController.Withdraw(transaction.id, transaction.amount);
+                    accountController.Withdraw(transaction.code, transaction.amount);
                     ClearTexts();
                     DisplayAccountDetails();
                 }
             }
             else
             {
-                AlertPopup popup = new AlertPopup(amountConvertedText);
+                amountConvertedText = $"${transaction.amount} CAD";
+                string code = cmbCurrency.SelectedItem.ToString();
+                string message;
+                if (code != "CAD") message = $"{originalAmountText} = {amountConvertedText}";
+                else message = amountConvertedText;
+                AlertPopup popup = new AlertPopup(message);
                 popup.ShowDialog();
+                ClearTexts();
             }
         }          
 
@@ -184,7 +190,14 @@ namespace BankAssignment
             string code = cmbCurrency.SelectedItem.ToString();
             originalAmountText = $"${amountInput.Text} {code}";
             double amountConverted = currencyController.ExchangeToCAD(amount, code);
-            if (code != "CAD") amountConvertedText = $"Equals ${amountConverted} CAD";
+            if (code != "CAD")
+            {
+                amountConvertedText = $"Equals ${amountConverted} CAD";
+            }
+            else 
+            { 
+                amountConvertedText = String.Empty; 
+            }
 
             return amountConverted;
 

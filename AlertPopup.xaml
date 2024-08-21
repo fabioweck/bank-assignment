@@ -6,9 +6,10 @@
     xmlns:local="clr-namespace:BankAssignment"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="AlertPopup"
-    Width="350         "
+    Width="350"
     Height="250"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+        WindowStyle="None">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -65,22 +66,6 @@
             </Button.Style>
         </Button>
         <Label
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            Grid.Column="1"
-            Width="250"
-            Height="35"
-            Margin="0,23,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Content="You don't have enough balance"
-            FontSize="16"
-            FontWeight="SemiBold"
-            Foreground="#FF393053" />
-        <Label
-            x:Name="lblAmount"
             Grid.Row="2"
             Grid.Column="1"
             Width="250"
@@ -91,6 +76,22 @@
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
             Content="You don't have enough balance"
+            FontSize="12"
+            FontWeight="SemiBold"
+            Foreground="#FF393053" />
+        <Label
+            x:Name="lblAmount"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Width="250"
+            Height="35"
+            Margin="0,23,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content="$1500 CAD"
             FontSize="16"
             FontWeight="SemiBold"
             Foreground="#FF393053" />

@@ -11,13 +11,8 @@
         Background="Transparent"
         WindowStyle="None"
         mc:Ignorable="d">
-    <Border Background="#FFD2D2D2"
+    <Border Background="White"
             CornerRadius="10">
-        <Border.Effect>
-            <DropShadowEffect BlurRadius="15"
-                              ShadowDepth="5"
-                              Color="Gray" />
-        </Border.Effect>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
